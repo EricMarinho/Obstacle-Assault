@@ -25,13 +25,29 @@ void AMovingPlataform::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	
-	if (FVector::Dist(currentLocation, startLocation) > 100) {
+	MovePlataform(DeltaTime);
+
+}
+
+void AMovingPlataform::MovePlataform(float DeltaTime)
+{
+	if (ShouldPlataformReturn()) {
 		plataformVelocity = -plataformVelocity;
+		startLocation = currentLocation;
 	}
 
 	currentLocation = GetActorLocation() + plataformVelocity * DeltaTime;
 
 	SetActorLocation(currentLocation);
+}
 
+bool AMovingPlataform::ShouldPlataformReturn() const
+{
+	return GetDistanceMoved() > returnDistance;
+}
+
+float AMovingPlataform::GetDistanceMoved() const
+{
+	return FVector::Dist(currentLocation, startLocation);
 }
 

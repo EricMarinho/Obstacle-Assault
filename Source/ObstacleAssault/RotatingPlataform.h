@@ -4,16 +4,16 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "MovingPlataform.generated.h"
+#include "RotatingPlataform.generated.h"
 
 UCLASS()
-class OBSTACLEASSAULT_API AMovingPlataform : public AActor
+class OBSTACLEASSAULT_API ARotatingPlataform : public AActor
 {
 	GENERATED_BODY()
 	
 public:	
 	// Sets default values for this actor's properties
-	AMovingPlataform();
+	ARotatingPlataform();
 
 protected:
 	// Called when the game starts or when spawned
@@ -23,19 +23,9 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-private :
-
-	UPROPERTY(EditAnywhere, Category = "Retrun Distance")
-	float returnDistance = 100;
-
+private:
 	UPROPERTY(EditAnywhere, Category = "Actor Velocity")
-	FVector plataformVelocity = FVector(100, 0, 0);
+	FRotator plataformRotationSpeed;
 
-	FVector startLocation;
-	FVector currentLocation;
-
-	void MovePlataform(float DeltaTime);
-
-	bool ShouldPlataformReturn() const;
-	float GetDistanceMoved() const;
+	void RotatePlataform(float DeltaTime);
 };
